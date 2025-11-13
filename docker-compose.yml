@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  api:
+    build: ./services/api
+    container_name: docbench-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - deepseek
+      - tesseract
+    environment:
+      - RESULTS_DIR=/app/data/results
+      - UPLOAD_DIR=/app/data/uploads
+
+  deepseek:
+    build: ./services/deepseek_service
+    container_name: docbench-deepseek
+    volumes:
+      - ./data:/app/data
+    environment:
+      - HF_HOME=/app/.cache/huggingface
+      - MODEL_NAME=deepseek-ai/DeepSeek-OCR
+    # CPU-only, no GPU runtime here
+
+  tesseract:
+    build: ./services/tesseract_service
+    container_name: docbench-tesseract
+    volumes:
+      - ./data:/app/data
+
+  benchmark_worker:
+    build: ./services/benchmark_worker
+    container_name: docbench-worker
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - api
+      - deepseek
+      - tesseract
+
