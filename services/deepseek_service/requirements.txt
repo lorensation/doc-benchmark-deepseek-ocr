@@ -1,10 +1,19 @@
+# Core API dependencies
 fastapi
 uvicorn[standard]
 pydantic
-torch>=2.4.0
-transformers>=4.46.3
+python-multipart
+
+# DeepSeek-OCR dependencies (except torch/flash-attn)
+transformers==4.46.3
 tokenizers>=0.20.3
+accelerate>=0.26.0
 einops
 addict
 easydict
+matplotlib
 Pillow
+ninja
+packaging
+
+# NOTE: torch, torchvision, flash-attn must be installed via special wheels (see Dockerfile)

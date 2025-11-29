@@ -1,3 +1,10 @@
+data/datasets/invoices_raw/
+
+#DELETE THESE IN NEXT PUSH
+tests/
+.github/workflows/
+pytest.ini
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

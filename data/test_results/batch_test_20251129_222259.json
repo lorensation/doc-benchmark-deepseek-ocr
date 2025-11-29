@@ -1,0 +1,79 @@
+{
+  "timestamp": "20251129_222259",
+  "image_directory": "C:\\Users\\sanzp\\Desktop\\AI\\OCR-Benchmark-ENV\\doc-benchmark-deepseek-ocr\\data\\datasets\\invoices_raw",
+  "limit": 5,
+  "deepseek_results": [
+    {
+      "success": true,
+      "time": 35.528013467788696,
+      "text_length": 1962,
+      "filename": "batch1-0001.jpg",
+      "confidence": 1.0
+    },
+    {
+      "success": true,
+      "time": 28.650128841400146,
+      "text_length": 1546,
+      "filename": "batch1-0002.jpg",
+      "confidence": 1.0
+    },
+    {
+      "success": true,
+      "time": 30.670429944992065,
+      "text_length": 1363,
+      "filename": "batch1-0003.jpg",
+      "confidence": 1.0
+    },
+    {
+      "success": true,
+      "time": 29.71310830116272,
+      "text_length": 1622,
+      "filename": "batch1-0004.jpg",
+      "confidence": 1.0
+    },
+    {
+      "success": true,
+      "time": 34.25069284439087,
+      "text_length": 1648,
+      "filename": "batch1-0005.jpg",
+      "confidence": 1.0
+    }
+  ],
+  "tesseract_results": [
+    {
+      "success": true,
+      "time": 1.974975824356079,
+      "text_length": 1210,
+      "filename": "batch1-0001.jpg",
+      "confidence": 0.7287169811320754
+    },
+    {
+      "success": true,
+      "time": 1.865990161895752,
+      "text_length": 1034,
+      "filename": "batch1-0002.jpg",
+      "confidence": 0.4327440633245383
+    },
+    {
+      "success": true,
+      "time": 1.526869773864746,
+      "text_length": 850,
+      "filename": "batch1-0003.jpg",
+      "confidence": 0.4816603773584906
+    },
+    {
+      "success": true,
+      "time": 1.830369472503662,
+      "text_length": 1052,
+      "filename": "batch1-0004.jpg",
+      "confidence": 0.4760670731707317
+    },
+    {
+      "success": true,
+      "time": 1.687363624572754,
+      "text_length": 985,
+      "filename": "batch1-0005.jpg",
+      "confidence": 0.48958333333333337
+    }
+  ]
+}

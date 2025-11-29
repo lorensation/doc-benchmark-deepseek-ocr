@@ -1,0 +1,20 @@
+{
+  "timestamp": "20251129_222827",
+  "image": "../data/datasets/invoices_raw/batch1-0001.jpg",
+  "deepseek": {
+    "success": true,
+    "service": "DeepSeek-OCR",
+    "response_time": 35.20456790924072,
+    "text": "\nSeller: \n\n\nAndrews, Kirby and Valdez \n\n\n58861 Gonzalez Prairie \n\n\nLake Daniellefurt, IN 57228 \n\n\nTax Id: 945-82-2137 \n\n\nIBAN: GB75MCRL06841367619257 \n\n\nClient: \n\n\nBecker Ltd\n8012 Stewart Summit Apt. 455\nNorth Douglas, AZ 95355 \n\n\nTax Id: 942-80-0517 \n\n\nITEMS \n\n\n<table><tr><td>No.</td><td>Description</td><td>Qty</td><td>UM</td><td>Net price</td><td>Net worth</td><td>VAT [%]</td><td>Gross worth</td></tr><tr><td>1.</td><td>CLEARANCE! Fast Dell Desktop Computer PC DUAL CORE WINDOWS 10 4/8/16GB RAM</td><td>3,00</td><td>each</td><td>209,00</td><td>627,00</td><td>10%</td><td>689,70</td></tr><tr><td>2.</td><td>HP T520 Thin Client Computer AMD GX-212JC 1.2GHz 4GB RAM TESTED !!READ BELOW!!</td><td>5,00</td><td>each</td><td>37,75</td><td>188,75</td><td>10%</td><td>207,63</td></tr><tr><td>3.</td><td>gaming pc desktop computer</td><td>1,00</td><td>each</td><td>400,00</td><td>400,00</td><td>10%</td><td>440,00</td></tr><tr><td>4.</td><td>12-Core Gaming Computer Desktop PC Tower Affordable GAMING PC 8GB AMD Vega RGB</td><td>3,00</td><td>each</td><td>464,89</td><td>1 394,67</td><td>10%</td><td>1 534,14</td></tr><tr><td>5.</td><td>Custom Build Dell Optiplex 9020 MT i5-4570 3.20GHz Desktop Computer PC</td><td>5,00</td><td>each</td><td>221,99</td><td>1 109,95</td><td>10%</td><td>1 220,95</td></tr><tr><td>6.</td><td>Dell Optiplex 990 MT Computer PC Quad Core i7 3.4GHz 16GB 2TB HD Windows 10 Pro</td><td>4,00</td><td>each</td><td>269,95</td><td>1 079,80</td><td>10%</td><td>1 187,78</td></tr><tr><td>7.</td><td>Dell Core 2 Duo Desktop Computer | Windows XP Pro | 4GB | 500GB</td><td>5,00</td><td>each</td><td>168,00</td><td>840,00</td><td>10%</td><td>924,00</td></tr></table>\n\n\nSUMMARY \n\n\n<table><tr><td></td><td>VAT [%]</td><td>Net worth</td><td>VAT</td><td>Gross worth</td></tr><tr><td></td><td>10%</td><td>5 640,17</td><td>564,02</td><td>6 204,19</td></tr><tr><td>Total</td><td></td><td>\\(5 640,17\\)</td><td>\\(564,02\\)</td><td>\\(6 204,19\\)</td></tr></table>",
+    "confidence": 1.0,
+    "error": null
+  },
+  "tesseract": {
+    "success": true,
+    "service": "Tesseract",
+    "response_time": 1.799992322921753,
+    "text": "Invoice no: 51109338\n\nDate of issue: 04/13/2013\n\nSeller: Client:\n\nAndrews, Kirby and Valdez Becker Ltd\n\n58861 Gonzalez Prairie 8012 Stewart Summit Apt. 455\nLake Daniellefurt, IN 57228 North Douglas, AZ 95355\n\nTax Id: 945-82-2137 Tax Id: 942-80-0517\n\nIBAN: GB75MCRL06841367619257\n\nITEMS\nNo. Description Qty UM Net price Net worth VAT [%] Gross\nworth\ntks CLEARANCE! Fast Dell Desktop 3,00 each 209,00 627,00 10% 689,70\nComputer PC DUAL CORE\nWINDOWS 10 4/8/16GB RAM\n2. HP T520 Thin Client Computer 5,00 each 37,75 188,75 10% 207,63\nAMD GX-212JC 1.2GHz 4GB RAM\nTESTED !!READ BELOW!!\n3: gaming pc desktop computer 1,00 each 400,00 400,00 10% 440,00\n4. 12-Core Gaming Computer 3,00 each 464,89 1 394,67 10% 1 534,14\nDesktop PC Tower Affordable\nGAMING PC 8GB AMD Vega RGB\nDe Custom Build Dell Optiplex 9020 5,00 each 221,99 1 109,95 10% 1 220,95\nMT i5-4570 3.20GHz Desktop\nComputer PC\n6. Dell Optiplex 990 MT Computer 4,00 each 269,95 1 079,80 10% 1 187,78\nPC Quad Core i7 3.4GHz 16GB\n2TB HD Windows 10 Pro\nae Dell Core 2 Duo Desktop 5,00 each 168,00 840,00 10% 924,00\nComputer | Windows XP Pro |\n4GB | 500GB\nSUMMARY\nVAT [%] Net worth VAT Gross worth\n10% 5 640,17 564,02 6 204,19\n\nTotal $5 640,17 $ 564,02 $ 6 204,19\n",
+    "confidence": 0.7287169811320754,
+    "error": null
+  }
+}
