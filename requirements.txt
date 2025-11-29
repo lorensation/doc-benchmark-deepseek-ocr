@@ -1,0 +1,40 @@
+# Testing Requirements for doc-benchmark-deepseek-ocr
+# This file contains all dependencies needed to run the testing workflow
+
+# Core Testing Framework
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+
+# FastAPI Testing
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+httpx==0.25.2
+python-multipart==0.0.6
+
+# HTTP Testing & Mocking
+requests==2.31.0
+requests-mock==1.11.0
+urllib3==2.1.0
+
+# API Dependencies (for testing API service)
+# Using newer versions with pre-built wheels for Python 3.13 on Windows
+pydantic>=2.10.0
+pydantic-settings>=2.6.0
+# orjson is optional - only needed for production API performance
+# Commented out to avoid Rust compilation issues on Windows
+# orjson>=3.10.7  # Use newer version with pre-built wheels if needed
+
+# Image Processing (for test fixtures)
+pillow==11.0.0
+
+# Test Data Generation
+faker==20.1.0
+factory-boy==3.3.0
+
+# Code Coverage
+coverage[toml]==7.3.2
+
+# Additional Utilities
+python-dotenv==1.0.0
