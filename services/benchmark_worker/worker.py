@@ -48,6 +48,29 @@ DEFAULT_DEEPSEEK = "http://deepseek:9000/ocr" if IN_DOCKER else "http://localhos
 DEFAULT_TESSERACT = "http://tesseract:9001/ocr" if IN_DOCKER else "http://localhost:9001/ocr"
 DEEPSEEK_URL = os.getenv("DEEPSEEK_URL", DEFAULT_DEEPSEEK)
 TESSERACT_URL = os.getenv("TESSERACT_URL", DEFAULT_TESSERACT)
+DEFAULT_VISTA = "http://vista:9002/ocr" if IN_DOCKER else "http://localhost:9002/ocr"
+DEFAULT_HUNYUAN = "http://hunyuan:9003/ocr" if IN_DOCKER else "http://localhost:9003/ocr"
+DEFAULT_QWEN = "http://qwen2vl:9004/ocr" if IN_DOCKER else "http://localhost:9004/ocr"
+VISTA_URL = os.getenv("VISTA_URL", DEFAULT_VISTA)
+HUNYUAN_URL = os.getenv("HUNYUAN_URL", DEFAULT_HUNYUAN)
+QWEN_URL = os.getenv("QWEN_URL", DEFAULT_QWEN)
+
+OCR_ENDPOINTS = {
+    "deepseek": DEEPSEEK_URL,
+    "tesseract": TESSERACT_URL,
+    "vista": VISTA_URL,
+    "hunyuan": HUNYUAN_URL,
+    "qwen2vl": QWEN_URL,
+}
+
+OCR_SERVICE_LABELS = {
+    "deepseek": "DeepSeek-OCR",
+    "tesseract": "Tesseract",
+    "vista": "VISTA-OCR",
+    "hunyuan": "HunyuanOCR",
+    "qwen2vl": "Qwen2-VL",
+}
+SERVICE_ORDER = ["deepseek", "tesseract", "vista", "hunyuan", "qwen2vl"]
 
 WORKER_PORT = int(os.getenv("WORKER_PORT", "9100"))
 
@@ -57,18 +80,11 @@ os.makedirs(RESULTS_DIR, exist_ok=True)
 app = FastAPI(title="Benchmark Worker", version="0.1.0")
 
 
-def call_deepseek(filepath: str) -> str:
-    """Send image to DeepSeek-OCR service."""
+def call_ocr_service(service: str, filepath: str) -> str:
+    """Send image to one of the OCR microservices."""
+    url = OCR_ENDPOINTS[service]
     with open(filepath, "rb") as file:
-        resp = requests.post(DEEPSEEK_URL, files={"file": (os.path.basename(filepath), file)})
-    resp.raise_for_status()
-    return resp.json().get("text", "")
-
-
-def call_tesseract(filepath: str) -> str:
-    """Send image to Tesseract service."""
-    with open(filepath, "rb") as file:
-        resp = requests.post(TESSERACT_URL, files={"file": (os.path.basename(filepath), file)})
+        resp = requests.post(url, files={"file": (os.path.basename(filepath), file)})
     resp.raise_for_status()
     return resp.json().get("text", "")
 
@@ -169,24 +185,32 @@ def _load_ground_truth_for_file(image_path: str) -> dict:
 
 
 def compute_metrics(
-    ds_text: str,
-    ts_text: str,
+    outputs: Dict[str, str],
     ground_truth_text: Optional[str] = None,
     ground_truth_lines: Optional[List[str]] = None,
     ground_truth_fields: Optional[Dict[str, str]] = None,
 ) -> dict:
-    """Compute metrics for DeepSeek and Tesseract outputs."""
+    """Compute metrics for all OCR outputs."""
+    lengths = {name: len(text) for name, text in outputs.items()}
+    metrics: Dict[str, object] = {"lengths": lengths}
+
     if ground_truth_text:
-        return {
-            "deepseek": compute_model_metrics(ds_text, ground_truth_text, ground_truth_lines, ground_truth_fields),
-            "tesseract": compute_model_metrics(ts_text, ground_truth_text, ground_truth_lines, ground_truth_fields),
-            "char_difference": abs(len(ds_text) - len(ts_text)),
+        model_metrics = {
+            name: compute_model_metrics(text, ground_truth_text, ground_truth_lines, ground_truth_fields)
+            for name, text in outputs.items()
+        }
+        metrics["models"] = model_metrics
+        metrics.update(model_metrics)
+
+    if "deepseek" in outputs:
+        baseline = outputs["deepseek"]
+        metrics["char_difference_vs_deepseek"] = {
+            name: abs(len(text) - len(baseline))
+            for name, text in outputs.items()
+            if name != "deepseek"
         }
 
-    return {
-        "lengths": {"deepseek": len(ds_text), "tesseract": len(ts_text)},
-        "char_difference": abs(len(ds_text) - len(ts_text)),
-    }
+    return metrics
 
 
 def run_benchmark(
@@ -196,7 +220,7 @@ def run_benchmark(
     ground_truth_fields: Optional[Dict[str, str]] = None,
     output_dir: Optional[Path] = None,
 ) -> dict:
-    """Run DeepSeek + Tesseract on a single file."""
+    """Run all OCR engines on a single file."""
     # Auto-load SROIE ground truth if not provided
     if not any([ground_truth_text, ground_truth_lines, ground_truth_fields]):
         gt = _load_ground_truth_for_file(filepath)
@@ -208,18 +232,23 @@ def run_benchmark(
     filename = os.path.basename(filepath)
     created_at = dt.datetime.now(dt.timezone.utc).isoformat()
 
-    ds_text = call_deepseek(filepath)
-    ts_text = call_tesseract(filepath)
+    outputs: Dict[str, str] = {}
+    for service in SERVICE_ORDER:
+        outputs[service] = call_ocr_service(service, filepath)
 
-    metrics = compute_metrics(ds_text, ts_text, ground_truth_text, ground_truth_lines, ground_truth_fields)
+    metrics = compute_metrics(outputs, ground_truth_text, ground_truth_lines, ground_truth_fields)
 
     result = {
         "run_id": run_id,
         "filename": filename,
         "created_at": created_at,
         "ground_truth_available": bool(ground_truth_text),
-        "deepseek_text": ds_text,
-        "tesseract_text": ts_text,
+        "deepseek_text": outputs.get("deepseek", ""),
+        "tesseract_text": outputs.get("tesseract", ""),
+        "vista_text": outputs.get("vista", ""),
+        "hunyuan_text": outputs.get("hunyuan", ""),
+        "qwen2vl_text": outputs.get("qwen2vl", ""),
+        "outputs": outputs,
         "metrics": metrics,
     }
 
@@ -300,7 +329,14 @@ def list_results(limit: int = 50) -> List[str]:
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "deepseek_url": DEEPSEEK_URL, "tesseract_url": TESSERACT_URL}
+    return {
+        "status": "ok",
+        "deepseek_url": DEEPSEEK_URL,
+        "tesseract_url": TESSERACT_URL,
+        "vista_url": VISTA_URL,
+        "hunyuan_url": HUNYUAN_URL,
+        "qwen2vl_url": QWEN_URL,
+    }
 
 
 @app.get("/results")

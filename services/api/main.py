@@ -31,6 +31,9 @@ class Settings(BaseSettings):
     results_dir: str = Field(default="/app/data/results")
     deepseek_url: str = Field(default="http://deepseek:9000/ocr")
     tesseract_url: str = Field(default="http://tesseract:9001/ocr")
+    vista_url: str = Field(default="http://vista:9002/ocr")
+    hunyuan_url: str = Field(default="http://hunyuan:9003/ocr")
+    qwen_url: str = Field(default="http://qwen2vl:9004/ocr")
     max_file_size_mb: int = Field(default=10)
     request_timeout: int = Field(default=30)
     max_retries: int = Field(default=3)
@@ -103,8 +106,14 @@ class BenchmarkResult(BaseModel):
     filename: str
     deepseek_text: str
     tesseract_text: str
+    vista_text: str = ""
+    hunyuan_text: str = ""
+    qwen2vl_text: str = ""
     length_deepseek: int
     length_tesseract: int
+    length_vista: int = 0
+    length_hunyuan: int = 0
+    length_qwen2vl: int = 0
     created_at: str
     status: str = Field(default="completed")
     error: Optional[str] = None
@@ -204,7 +213,7 @@ def call_ocr_service(service_url: str, service_name: str, file_path: str, filena
 
 @app.post("/upload_and_benchmark", response_model=BenchmarkResult)
 async def upload_and_benchmark(file: UploadFile = File(...)):
-    """Upload an image and run OCR benchmark with both DeepSeek and Tesseract."""
+    """Upload an image and run OCR benchmark across all configured OCR services."""
     run_id = str(uuid.uuid4())
     correlation_id = run_id
     dest_path = None
@@ -240,18 +249,25 @@ async def upload_and_benchmark(file: UploadFile = File(...)):
         logger.info(f"File saved to {dest_path}")
         
         # Call OCR services
-        ds_text = call_ocr_service(settings.deepseek_url, "DeepSeek", dest_path, filename)
-        ts_text = call_ocr_service(settings.tesseract_url, "Tesseract", dest_path, filename)
+        ocr_services = [
+            ("DeepSeek", settings.deepseek_url, "deepseek_text", "length_deepseek"),
+            ("Tesseract", settings.tesseract_url, "tesseract_text", "length_tesseract"),
+            ("VISTA-OCR", settings.vista_url, "vista_text", "length_vista"),
+            ("HunyuanOCR", settings.hunyuan_url, "hunyuan_text", "length_hunyuan"),
+            ("Qwen2-VL", settings.qwen_url, "qwen2vl_text", "length_qwen2vl"),
+        ]
+        ocr_results = {}
+        for service_name, url, text_key, length_key in ocr_services:
+            text = call_ocr_service(url, service_name, dest_path, filename)
+            ocr_results[text_key] = text
+            ocr_results[length_key] = len(text)
         
         created_at = dt.datetime.utcnow().isoformat()
         
         result = {
             "run_id": run_id,
             "filename": filename,
-            "deepseek_text": ds_text,
-            "tesseract_text": ts_text,
-            "length_deepseek": len(ds_text),
-            "length_tesseract": len(ts_text),
+            **ocr_results,
             "created_at": created_at,
             "status": "completed"
         }
@@ -276,8 +292,14 @@ async def upload_and_benchmark(file: UploadFile = File(...)):
             "filename": file.filename,
             "deepseek_text": "",
             "tesseract_text": "",
+            "vista_text": "",
+            "hunyuan_text": "",
+            "qwen2vl_text": "",
             "length_deepseek": 0,
             "length_tesseract": 0,
+            "length_vista": 0,
+            "length_hunyuan": 0,
+            "length_qwen2vl": 0,
             "created_at": dt.datetime.utcnow().isoformat(),
             "status": "failed",
             "error": str(e)
@@ -410,6 +432,9 @@ def readiness_check():
         "api": "healthy",
         "deepseek": "unknown",
         "tesseract": "unknown",
+        "vista": "unknown",
+        "hunyuan": "unknown",
+        "qwen2vl": "unknown",
         "storage": "unknown"
     }
     
@@ -426,6 +451,27 @@ def readiness_check():
         checks["tesseract"] = "healthy" if resp.status_code == 200 else "unhealthy"
     except:
         checks["tesseract"] = "unhealthy"
+
+    # Check VISTA service
+    try:
+        resp = requests.get(f"{settings.vista_url.replace('/ocr', '/health')}", timeout=5)
+        checks["vista"] = "healthy" if resp.status_code == 200 else "unhealthy"
+    except:
+        checks["vista"] = "unhealthy"
+
+    # Check Hunyuan service
+    try:
+        resp = requests.get(f"{settings.hunyuan_url.replace('/ocr', '/health')}", timeout=5)
+        checks["hunyuan"] = "healthy" if resp.status_code == 200 else "unhealthy"
+    except:
+        checks["hunyuan"] = "unhealthy"
+
+    # Check Qwen2-VL service
+    try:
+        resp = requests.get(f"{settings.qwen_url.replace('/ocr', '/health')}", timeout=5)
+        checks["qwen2vl"] = "healthy" if resp.status_code == 200 else "unhealthy"
+    except:
+        checks["qwen2vl"] = "unhealthy"
     
     # Check storage
     checks["storage"] = "healthy" if os.path.exists(settings.results_dir) and os.access(settings.results_dir, os.W_OK) else "unhealthy"

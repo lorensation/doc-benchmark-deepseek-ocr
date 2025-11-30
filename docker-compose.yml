@@ -6,16 +6,14 @@ services:
       - "8000:8000"
     volumes:
       - ./data:/app/data
-    depends_on:
-      deepseek:
-        condition: service_healthy
-      tesseract:
-        condition: service_healthy
     environment:
       - RESULTS_DIR=/app/data/results
       - UPLOAD_DIR=/app/data/uploads
       - DEEPSEEK_URL=http://deepseek:9000/ocr
       - TESSERACT_URL=http://tesseract:9001/ocr
+      - VISTA_URL=http://vista:9002/ocr
+      - HUNYUAN_URL=http://hunyuan:9003/ocr
+      - QWEN_URL=http://qwen2vl:9004/ocr
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -23,6 +21,17 @@ services:
       retries: 3
       start_period: 10s
     restart: unless-stopped
+    depends_on:
+      deepseek:
+        condition: service_healthy
+      tesseract:
+        condition: service_healthy
+      vista:
+        condition: service_healthy
+      hunyuan:
+        condition: service_healthy
+      qwen2vl:
+        condition: service_healthy
 
   deepseek:
     build: ./services/deepseek_service
@@ -67,6 +76,90 @@ services:
       start_period: 10s
     restart: unless-stopped
 
+  vista:
+    build: ./services/vista_service
+    container_name: docbench-vista
+    ports:
+      - "9002:9002"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - HF_HOME=/app/.cache/huggingface
+      - MODEL_NAME=mPLUG/DocOwl2
+      - CUDA_VISIBLE_DEVICES=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  hunyuan:
+    build: ./services/hunyuan_service
+    container_name: docbench-hunyuan
+    ports:
+      - "9003:9003"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - HF_HOME=/app/.cache/huggingface
+      - MODEL_NAME=tencent/HunyuanOCR
+      - CUDA_VISIBLE_DEVICES=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  qwen2vl:
+    build: ./services/qwen2vl_service
+    container_name: docbench-qwen2vl
+    ports:
+      - "9004:9004"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - HF_HOME=/app/.cache/huggingface
+      - MODEL_NAME=Qwen/Qwen2-VL-7B-Instruct
+      - CUDA_VISIBLE_DEVICES=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
   benchmark_worker:
     build: ./services/benchmark_worker
     container_name: docbench-worker
@@ -79,12 +172,18 @@ services:
       - WORKER_PORT=9100
       - DEEPSEEK_URL=http://deepseek:9000/ocr
       - TESSERACT_URL=http://tesseract:9001/ocr
+      - VISTA_URL=http://vista:9002/ocr
+      - HUNYUAN_URL=http://hunyuan:9003/ocr
+      - QWEN_URL=http://qwen2vl:9004/ocr
     ports:
       - "9100:9100"
     depends_on:
       - api
       - deepseek
       - tesseract
+      - vista
+      - hunyuan
+      - qwen2vl
     restart: unless-stopped
 
 
