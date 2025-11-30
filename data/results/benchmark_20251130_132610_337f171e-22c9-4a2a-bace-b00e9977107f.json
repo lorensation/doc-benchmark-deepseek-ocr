@@ -1,0 +1,634 @@
+{
+  "run_id": "337f171e-22c9-4a2a-bace-b00e9977107f",
+  "filename": "X00016469670.jpg",
+  "created_at": "2025-11-30T13:25:08.973013+00:00",
+  "ground_truth_available": true,
+  "deepseek_text": "\n# tan chay yee \n\n\n*** COPY ***\nOJC MARKETING SDN BHD\nROC NO: 538358-H\nNO 2 & 4, JALAN BAYU 4,\nBANDAR SERI ALAM,\n81750 MASAI, JOHOR\nTel:07-388 2218 Fax:07-388 8218\nEmail: ng@ojcgroup.com \n\n\n## TAX INVOICE \n\n\nInvoice No : PEGIV-1030765 \n\n\nDate : 15/01/2019 11:05:16 AM \n\n\nCashier : NG CHUAN MIN \n\n\nSales Person : FATIN \n\n\nBill To : THE PEAK QUARRY WORKS \n\n\nAddress : \n\n\nDescription Qty. Price Amount \n\n\n000000111 1 193.00 193.00 SR \n\n\nKINGS SAFETY SHOES KWD 805 \n\n\nQty: 1 Total Exclude GST: 193.00 \n\n\nTotal GST @6%: 0.00 \n\n\nTotal Inclusive GST: 193.00 \n\n\nRound Amt: 0.00 \n\n\nTOTAL: 193.00 \n\n\nVISA CARD 193.00 \n\n\nxxxxxxxxxxxx4318 \n\n\nApproval Code:000 \n\n![](images/0.jpg)\n\n \n\n\nGoods Sold Are Not Returnable & Refundable \n\n\n****Thank You. Please Come Again.****",
+  "tesseract_text": "tan chay yee\n\n*** COPY ***\nOJC MARKETING SDN BHD\nROC NO: 538358-H\nNO 2&4, JALAN BAYU 4,\nBANDAR SERI ALAM,\n81750 MASAI, JOHOR\nTel:07-388 2218 Fax:07-388 8218\nEmail: ng@ojcgroup.com\n\nTAX INVOICE\n\n“Invoice No”! PEGIV-1030765\nDate 2 15/01/2019 11:05:16 AM\nCashier : NG CHUAN MIN\nSales Persor : FATIN\nBill To : THE PEAK QUARRY WORKS\nAddress\n\n__ Description Qty. Price Amount\n\n‘tal Exclude GST: 193.00\nTotal GST @6%: 0.00\nTotal Inclusive GST: 193.00\n\nVISA CARD 19:\n9000000000004 31.8\n\nApproval Code:000 I-00) .\n\nGoods Sold Are Not Returnable & Refundable\n*+*+Thank You. Please Come Again.****\n",
+  "metrics": {
+    "deepseek": {
+      "llm": {
+        "token_efficiency": {
+          "total_tokens": 278,
+          "meaningful_tokens": 254,
+          "token_density": 0.9136690647482014,
+          "compression_ratio": 0.9136690647482014,
+          "estimated_cost_usd": 0.0027800000000000004,
+          "chars_per_token": 2.7194244604316546
+        },
+        "field_extraction": {
+          "field_precision": 1.0,
+          "field_recall": 0.75,
+          "field_f1": 0.8571428571428571,
+          "correct_fields": [
+            "company",
+            "date",
+            "total"
+          ],
+          "missing_fields": [
+            "address"
+          ],
+          "incorrect_fields": [],
+          "extra_fields": []
+        }
+      },
+      "text": {
+        "cer": {
+          "cer": 45.331325301204814,
+          "insertions": 92,
+          "deletions": 0,
+          "substitutions": 210,
+          "total_chars": 664
+        },
+        "wer": {
+          "wer": 120.0,
+          "insertions": 43,
+          "deletions": 0,
+          "substitutions": 35,
+          "total_words": 111
+        },
+        "ser": {
+          "ser": 75.0,
+          "total_sentences": 76,
+          "error_sentences": 57,
+          "correct_sentences": 19,
+          "error_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            50,
+            53,
+            56,
+            59,
+            62,
+            65,
+            67,
+            72,
+            75
+          ]
+        },
+        "token_accuracy": {
+          "exact_match_rate": 1.7391304347826086,
+          "token_precision": 0.5463917525773195,
+          "token_recall": 0.5760869565217391,
+          "token_f1": 0.5608465608465608,
+          "correct_tokens": 53,
+          "total_gt_tokens": 111,
+          "total_pred_tokens": 115
+        },
+        "confusion_matrix": {
+          "confusion_matrix": {
+            "<INSERT>": {
+              "\n": 47,
+              "#": 3,
+              " ": 20,
+              "y": 1,
+              "c": 1,
+              "t": 1,
+              "m": 2,
+              "!": 1,
+              "[": 1,
+              "]": 1,
+              "(": 1,
+              "i": 1,
+              "a": 1,
+              "g": 2,
+              "e": 2,
+              "s": 1,
+              "/": 1,
+              "0": 1,
+              ".": 1,
+              "j": 1,
+              "p": 1,
+              ")": 1
+            },
+            "T": {
+              "t": 10,
+              "y": 1,
+              " ": 1
+            },
+            "A": {
+              "a": 15,
+              "b": 1
+            },
+            "N": {
+              "n": 10,
+              "t": 1,
+              "d": 1
+            },
+            "C": {
+              "c": 7,
+              "o": 1
+            },
+            "H": {
+              "h": 3
+            },
+            "Y": {
+              "y": 2,
+              "e": 1,
+              ".": 1
+            },
+            "E": {
+              "e": 19,
+              " ": 2,
+              "f": 1
+            },
+            "L": {
+              "l": 14,
+              "e": 1
+            },
+            "X": {
+              "x": 14
+            },
+            "M": {
+              "m": 3,
+              " ": 1,
+              "o": 1
+            },
+            "I": {
+              "i": 9
+            },
+            "G": {
+              "g": 3
+            },
+            "O": {
+              "o": 19,
+              "m": 1,
+              "u": 1
+            },
+            "J": {
+              "j": 1
+            },
+            "R": {
+              "r": 9
+            },
+            "U": {
+              "u": 6,
+              "n": 2
+            },
+            "P": {
+              "p": 4
+            },
+            "V": {
+              "v": 3
+            },
+            "\n": {
+              " ": 18
+            },
+            "S": {
+              "s": 9
+            },
+            "D": {
+              "d": 7,
+              "a": 1
+            },
+            ".": {
+              " ": 1
+            },
+            "B": {
+              "8": 1,
+              "b": 1,
+              "l": 1
+            },
+            "F": {
+              "u": 1
+            },
+            "K": {
+              "k": 1
+            }
+          },
+          "total_errors": 302,
+          "top_confusions": [
+            [
+              "<INSERT>",
+              "\n",
+              47
+            ],
+            [
+              "<INSERT>",
+              " ",
+              20
+            ],
+            [
+              "E",
+              "e",
+              19
+            ],
+            [
+              "O",
+              "o",
+              19
+            ],
+            [
+              "\n",
+              " ",
+              18
+            ],
+            [
+              "A",
+              "a",
+              15
+            ],
+            [
+              "L",
+              "l",
+              14
+            ],
+            [
+              "X",
+              "x",
+              14
+            ],
+            [
+              "T",
+              "t",
+              10
+            ],
+            [
+              "N",
+              "n",
+              10
+            ]
+          ],
+          "confusion_rate": 45.48192771084337
+        }
+      }
+    },
+    "tesseract": {
+      "llm": {
+        "token_efficiency": {
+          "total_tokens": 235,
+          "meaningful_tokens": 217,
+          "token_density": 0.9234042553191489,
+          "compression_ratio": 0.9234042553191489,
+          "estimated_cost_usd": 0.00235,
+          "chars_per_token": 2.497872340425532
+        },
+        "field_extraction": {
+          "field_precision": 1.0,
+          "field_recall": 0.75,
+          "field_f1": 0.8571428571428571,
+          "correct_fields": [
+            "company",
+            "date",
+            "total"
+          ],
+          "missing_fields": [
+            "address"
+          ],
+          "incorrect_fields": [],
+          "extra_fields": []
+        }
+      },
+      "text": {
+        "cer": {
+          "cer": 47.28915662650602,
+          "insertions": 19,
+          "deletions": 96,
+          "substitutions": 200,
+          "total_chars": 664
+        },
+        "wer": {
+          "wer": 87.6923076923077,
+          "insertions": 16,
+          "deletions": 2,
+          "substitutions": 39,
+          "total_words": 111
+        },
+        "ser": {
+          "ser": 100.0,
+          "total_sentences": 47,
+          "error_sentences": 47,
+          "correct_sentences": 0,
+          "error_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46
+          ]
+        },
+        "token_accuracy": {
+          "exact_match_rate": 9.90990990990991,
+          "token_precision": 0.5056179775280899,
+          "token_recall": 0.4891304347826087,
+          "token_f1": 0.4972375690607735,
+          "correct_tokens": 45,
+          "total_gt_tokens": 111,
+          "total_pred_tokens": 95
+        },
+        "confusion_matrix": {
+          "confusion_matrix": {
+            "T": {
+              "t": 8,
+              "<DELETE>": 5,
+              "u": 1,
+              "‘": 1,
+              "a": 1
+            },
+            "A": {
+              "a": 15,
+              "<DELETE>": 3,
+              "l": 1
+            },
+            "N": {
+              "n": 9,
+              "r": 1,
+              "<DELETE>": 3
+            },
+            "C": {
+              "c": 7,
+              "<DELETE>": 1
+            },
+            "H": {
+              "h": 3,
+              "<DELETE>": 1
+            },
+            "Y": {
+              "y": 3,
+              "n": 1,
+              "<DELETE>": 1
+            },
+            "E": {
+              "e": 21,
+              "<DELETE>": 2,
+              "o": 1
+            },
+            "<INSERT>": {
+              "\n": 7,
+              " ": 3,
+              "“": 1,
+              ":": 1,
+              ".": 2,
+              "I": 1,
+              "-": 1,
+              "0": 2,
+              ")": 1
+            },
+            " ": {
+              "<DELETE>": 6,
+              "t": 1
+            },
+            "L": {
+              "l": 14,
+              "<DELETE>": 2
+            },
+            "X": {
+              "x": 2,
+              "0": 8,
+              "4": 1,
+              " ": 1,
+              "<DELETE>": 2
+            },
+            "M": {
+              "m": 3,
+              "<DELETE>": 2
+            },
+            "I": {
+              "i": 8,
+              "<DELETE>": 1,
+              "e": 1
+            },
+            "G": {
+              "g": 3,
+              "<DELETE>": 1
+            },
+            "O": {
+              "o": 18,
+              "<DELETE>": 4,
+              "t": 1
+            },
+            "J": {
+              "j": 1
+            },
+            "R": {
+              "r": 9,
+              "<DELETE>": 2
+            },
+            "U": {
+              "u": 6,
+              "<DELETE>": 2
+            },
+            "P": {
+              "p": 4,
+              "<DELETE>": 1
+            },
+            "V": {
+              "v": 3
+            },
+            "\n": {
+              "”": 1,
+              " ": 9,
+              "<DELETE>": 9,
+              "i": 1,
+              "0": 1
+            },
+            ":": {
+              "!": 1,
+              "2": 1,
+              "_": 1,
+              "<DELETE>": 3
+            },
+            "S": {
+              "s": 9,
+              "P": 1,
+              "<DELETE>": 4
+            },
+            "D": {
+              "d": 7,
+              "<DELETE>": 2
+            },
+            ".": {
+              "_": 1,
+              "<DELETE>": 3,
+              "9": 1
+            },
+            "0": {
+              "<DELETE>": 16
+            },
+            "1": {
+              "<DELETE>": 8
+            },
+            "9": {
+              "<DELETE>": 3
+            },
+            "3": {
+              "<DELETE>": 3,
+              "\n": 1
+            },
+            "K": {
+              "c": 1,
+              "<DELETE>": 1,
+              "k": 1
+            },
+            "F": {
+              "m": 1,
+              "f": 1
+            },
+            "W": {
+              "<DELETE>": 1
+            },
+            "B": {
+              "<DELETE>": 1,
+              "b": 2
+            },
+            "5": {
+              "<DELETE>": 1
+            },
+            "Q": {
+              "<DELETE>": 1
+            },
+            "4": {
+              "<DELETE>": 1
+            },
+            "*": {
+              "+": 2
+            }
+          },
+          "total_errors": 315,
+          "top_confusions": [
+            [
+              "E",
+              "e",
+              21
+            ],
+            [
+              "O",
+              "o",
+              18
+            ],
+            [
+              "0",
+              "<DELETE>",
+              16
+            ],
+            [
+              "A",
+              "a",
+              15
+            ],
+            [
+              "L",
+              "l",
+              14
+            ],
+            [
+              "N",
+              "n",
+              9
+            ],
+            [
+              "R",
+              "r",
+              9
+            ],
+            [
+              "\n",
+              " ",
+              9
+            ],
+            [
+              "\n",
+              "<DELETE>",
+              9
+            ],
+            [
+              "S",
+              "s",
+              9
+            ]
+          ],
+          "confusion_rate": 47.43975903614458
+        }
+      }
+    },
+    "char_difference": 169
+  }
+}

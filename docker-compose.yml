@@ -72,6 +72,15 @@ services:
     container_name: docbench-worker
     volumes:
       - ./data:/app/data
+    environment:
+      - RESULTS_DIR=/app/data/results
+      - UPLOAD_DIR=/app/data/uploads
+      - DATASETS_DIR=/app/data/datasets
+      - WORKER_PORT=9100
+      - DEEPSEEK_URL=http://deepseek:9000/ocr
+      - TESSERACT_URL=http://tesseract:9001/ocr
+    ports:
+      - "9100:9100"
     depends_on:
       - api
       - deepseek
