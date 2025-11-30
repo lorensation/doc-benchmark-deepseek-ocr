@@ -9,9 +9,13 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY worker.py .
+COPY . .
 
 ENV UPLOAD_DIR=/app/data/uploads
 ENV RESULTS_DIR=/app/data/results
+ENV DATASETS_DIR=/app/data/datasets
+ENV WORKER_PORT=9100
 
-CMD ["sleep", "infinity"]
+EXPOSE 9100
+
+CMD ["uvicorn", "worker:app", "--host", "0.0.0.0", "--port", "9100"]

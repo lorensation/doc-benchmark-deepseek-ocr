@@ -1,0 +1,12 @@
+{
+  "batch_run_id": "186dabd9-8216-41e7-9816-7c49acf087fb",
+  "split": "test",
+  "count": 5,
+  "result_files": [
+    "C:\\Users\\sanzp\\Desktop\\AI\\OCR-Benchmark-ENV\\doc-benchmark-deepseek-ocr\\data\\results\\sroie_test_186dabd9-8216-41e7-9816-7c49acf087fb\\89a09c83-6a95-4683-aee0-14b2856b3b0f.json",
+    "C:\\Users\\sanzp\\Desktop\\AI\\OCR-Benchmark-ENV\\doc-benchmark-deepseek-ocr\\data\\results\\sroie_test_186dabd9-8216-41e7-9816-7c49acf087fb\\ba72637a-d3a3-4482-9a49-aa05490f4e7f.json",
+    "C:\\Users\\sanzp\\Desktop\\AI\\OCR-Benchmark-ENV\\doc-benchmark-deepseek-ocr\\data\\results\\sroie_test_186dabd9-8216-41e7-9816-7c49acf087fb\\79ee19d2-ed66-4187-b9cb-9f7c039bedc1.json",
+    "C:\\Users\\sanzp\\Desktop\\AI\\OCR-Benchmark-ENV\\doc-benchmark-deepseek-ocr\\data\\results\\sroie_test_186dabd9-8216-41e7-9816-7c49acf087fb\\80a5e588-5a47-4942-a36d-468bdfbea168.json",
+    "C:\\Users\\sanzp\\Desktop\\AI\\OCR-Benchmark-ENV\\doc-benchmark-deepseek-ocr\\data\\results\\sroie_test_186dabd9-8216-41e7-9816-7c49acf087fb\\3ad8292c-1b37-499b-bbbc-08a107799122.json"
+  ]
+}

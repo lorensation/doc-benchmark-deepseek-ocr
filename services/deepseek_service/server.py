@@ -10,6 +10,7 @@ from pydantic import BaseModel
 from PIL import Image
 from transformers import AutoModel, AutoTokenizer # type: ignore
 import torch
+import glob
 
 
 # ============================================================
@@ -112,6 +113,28 @@ class OCRResponse(BaseModel):
     confidence: float = 1.0
 
 
+def _read_first_text_file(directory: str) -> str | None:
+    """Find and read the first markdown/text-like file in a directory (recursive)."""
+    patterns = [
+        "**/*.mmd",
+        "**/*.md",
+        "**/*.txt",
+    ]
+    files: list[str] = []
+    for pattern in patterns:
+        files.extend(glob.glob(os.path.join(directory, pattern), recursive=True))
+
+    if not files:
+        return None
+
+    # deterministic order
+    files = sorted(files)
+    chosen = files[0]
+    logger.info(f"Found output file: {chosen}")
+    with open(chosen, "r", encoding="utf-8") as f:
+        return f.read()
+
+
 # ============================================================
 # OCR Endpoint
 # ============================================================
@@ -166,44 +189,25 @@ async def ocr_image(file: UploadFile = File(...)):
                 test_compress=False,
             )
 
-            # Read the output file if result is None
-            if result is None:
-                # List all files in tmp directory to debug
-                import glob
-                all_files = glob.glob(os.path.join(tmp, "*"))
-                logger.info(f"Files in temp directory: {all_files}")
+            text: str | None = None
 
-                # Try multiple possible output file names
-                possible_names = [
-                    "result.mmd",      # Primary output file (mermaid markdown)
-                    "result.md",       # Alternative format
-                    "temp_image.md",
-                    "temp_image.jpg.md",
-                    "output.md"
-                ]
-
-                text = None
-                for name in possible_names:
-                    output_file = os.path.join(tmp, name)
-                    if os.path.exists(output_file):
-                        logger.info(f"Found output file: {output_file}")
-                        with open(output_file, 'r', encoding='utf-8') as f:
+            # Direct return content
+            if isinstance(result, dict):
+                text = result.get("text")
+                if text is None and "output_file" in result:
+                    maybe_path = result["output_file"]
+                    if os.path.exists(maybe_path):
+                        with open(maybe_path, "r", encoding="utf-8") as f:
                             text = f.read()
-                        break
-
-                # If still not found, check for any .md or .mmd files
-                if text is None:
-                    output_files = glob.glob(os.path.join(tmp, "*.md")) + glob.glob(os.path.join(tmp, "*.mmd"))
-                    if output_files:
-                        logger.info(f"Found output file: {output_files[0]}")
-                        with open(output_files[0], 'r', encoding='utf-8') as f:
-                            text = f.read()
-                    else:
-                        text = "OCR completed but no output file found"
-            elif isinstance(result, dict):
-                text = result.get("text", str(result))
-            else:
+            elif result is not None:
                 text = str(result)
+
+            # Fallback: scan output directory
+            if not text:
+                text = _read_first_text_file(tmp)
+
+            if not text:
+                text = "OCR completed but no output file found"
 
         logger.info(f"OCR complete ({len(text)} chars).")
 

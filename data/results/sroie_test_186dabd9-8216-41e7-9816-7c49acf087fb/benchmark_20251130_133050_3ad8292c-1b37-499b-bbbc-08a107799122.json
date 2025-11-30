@@ -1,0 +1,718 @@
+{
+  "run_id": "3ad8292c-1b37-499b-bbbc-08a107799122",
+  "filename": "X51005230616.jpg",
+  "created_at": "2025-11-30T13:30:44.080048+00:00",
+  "ground_truth_available": true,
+  "deepseek_text": "\n0\n\n\n0 0\n\n\n\n\n**0** **0**\n\n\n0 **0**\n\n<|ref|>text<|/ref|><|det|>[[0, 0, 997, 0]]",
+  "tesseract_text": "A psez.\n190\n\nGerbang Alaf Restaurants Sdn Bhd\n(65351-M)\nformerly known as\nGolden Arches Restaurants Sdn Bhd\nLicensee of McDonald's\nLevel 6, Bangunan TH, Damansara Uptown3\nNo.3, Jalan $S21/39,47406 Petaling Jaya\nSelangor\n(GST ID No: 000504664064 )\nMcDonald's Petronas Taman Melati OT\nTel No. : 03-4147-3107\nTAX INVOICE\n\nMFY Side 1\n\nINV# _.141900016842\nORD #90 -REG #19- 18/01/2018 17:09:21\n\nQTY ITEM TOTAL\n2 M SpicyDeluxe 25.40\n2M Coke\n2M Fries\n1M GrilChicBgr 12.50\n1M Coke\n1M Fries\n1 Smal] Cone 1.00\nTakeOut Total (incl GST) 38.90\nTotal Rounded 38.90\nCash Tendered 50.00\nChange 11.10\nTOTAL INCLUDES 6% GST 2.20\n\n] love to hear your feedback!\n\nVisit www.mcdfeedback .com.my\nOR\nDownload My McD Feedback from\nGoogle Play/App Store\n\nto share your experience\n\nThank You and Please Come Again.\nustomer Service Hotline : 03-2726-5600\n\n",
+  "metrics": {
+    "deepseek": {
+      "llm": {
+        "token_efficiency": {
+          "total_tokens": 46,
+          "meaningful_tokens": 43,
+          "token_density": 0.9347826086956522,
+          "compression_ratio": 0.9347826086956522,
+          "estimated_cost_usd": 0.00046,
+          "chars_per_token": 1.6956521739130435
+        },
+        "field_extraction": {
+          "field_precision": 0,
+          "field_recall": 0.0,
+          "field_f1": 0,
+          "correct_fields": [],
+          "missing_fields": [
+            "address",
+            "date",
+            "total",
+            "company"
+          ],
+          "incorrect_fields": [],
+          "extra_fields": []
+        }
+      },
+      "text": {
+        "cer": {
+          "cer": 96.66666666666667,
+          "insertions": 0,
+          "deletions": 732,
+          "substitutions": 51,
+          "total_chars": 810
+        },
+        "wer": {
+          "wer": 100.0,
+          "insertions": 0,
+          "deletions": 76,
+          "substitutions": 11,
+          "total_words": 132
+        },
+        "ser": {
+          "ser": 100.0,
+          "total_sentences": 46,
+          "error_sentences": 46,
+          "correct_sentences": 0,
+          "error_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45
+          ]
+        },
+        "token_accuracy": {
+          "exact_match_rate": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0,
+          "token_f1": 0,
+          "correct_tokens": 0,
+          "total_gt_tokens": 132,
+          "total_pred_tokens": 11
+        },
+        "confusion_matrix": {
+          "confusion_matrix": {
+            "1": {
+              "\n": 1,
+              "<DELETE>": 23
+            },
+            "9": {
+              "<DELETE>": 5,
+              "*": 1
+            },
+            "G": {
+              "<DELETE>": 16
+            },
+            "E": {
+              "<DELETE>": 51,
+              "*": 2,
+              "t": 2,
+              "r": 1
+            },
+            "R": {
+              "<DELETE>": 29
+            },
+            "B": {
+              "<DELETE>": 8
+            },
+            "A": {
+              "<DELETE>": 49
+            },
+            "N": {
+              "<DELETE>": 38
+            },
+            " ": {
+              "<DELETE>": 72,
+              "*": 1,
+              "|": 2,
+              "e": 1,
+              "<": 1,
+              "[": 1,
+              "0": 1,
+              ",": 1
+            },
+            "L": {
+              "<DELETE>": 28,
+              "<": 1
+            },
+            "F": {
+              "<DELETE>": 8,
+              "0": 1,
+              ",": 1
+            },
+            "S": {
+              "<DELETE>": 30,
+              "*": 1,
+              "f": 1
+            },
+            "T": {
+              "<DELETE>": 36
+            },
+            "U": {
+              "<DELETE>": 11,
+              "|": 1
+            },
+            "D": {
+              "<DELETE>": 27,
+              "x": 1
+            },
+            "H": {
+              "<DELETE>": 11
+            },
+            "(": {
+              "<DELETE>": 3
+            },
+            "6": {
+              "<DELETE>": 9
+            },
+            "5": {
+              "<DELETE>": 7
+            },
+            "3": {
+              "<DELETE>": 7,
+              "*": 1,
+              "]": 1
+            },
+            "-": {
+              "<DELETE>": 4,
+              "*": 2,
+              "]": 1
+            },
+            "M": {
+              "<DELETE>": 20,
+              "r": 1,
+              ">": 1,
+              "[": 1,
+              "0": 1
+            },
+            ")": {
+              "<DELETE>": 3
+            },
+            "O": {
+              "<DELETE>": 39,
+              "d": 1
+            },
+            "Y": {
+              "<DELETE>": 10,
+              "e": 1
+            },
+            "K": {
+              "0": 1,
+              "e": 1,
+              "<DELETE>": 6
+            },
+            "W": {
+              "<DELETE>": 6
+            },
+            "C": {
+              "<DELETE>": 23,
+              "t": 1,
+              "|": 1
+            },
+            "I": {
+              "<DELETE>": 21,
+              ">": 1
+            },
+            "'": {
+              "<DELETE>": 2
+            },
+            "V": {
+              "<DELETE>": 6
+            },
+            ",": {
+              "<DELETE>": 4
+            },
+            "P": {
+              "<DELETE>": 7,
+              "*": 1,
+              "|": 1
+            },
+            ".": {
+              "<DELETE>": 14
+            },
+            "J": {
+              "<DELETE>": 2
+            },
+            "2": {
+              "<DELETE>": 10,
+              "<": 1,
+              "f": 1,
+              ">": 1
+            },
+            "/": {
+              "<DELETE>": 4
+            },
+            "4": {
+              "<DELETE>": 10
+            },
+            "7": {
+              "<DELETE>": 5
+            },
+            "0": {
+              "<DELETE>": 22,
+              "*": 2,
+              "7": 1
+            },
+            "\n": {
+              "<DELETE>": 29,
+              "e": 1,
+              "|": 1,
+              ",": 1
+            },
+            ":": {
+              "<DELETE>": 5
+            },
+            "X": {
+              "<DELETE>": 2,
+              "/": 1
+            },
+            "#": {
+              "<DELETE>": 2,
+              "*": 1
+            },
+            "8": {
+              "<DELETE>": 5
+            },
+            "Q": {
+              "<DELETE>": 1
+            },
+            "%": {
+              "<DELETE>": 1
+            },
+            "!": {
+              "<DELETE>": 1
+            }
+          },
+          "total_errors": 783,
+          "top_confusions": [
+            [
+              " ",
+              "<DELETE>",
+              72
+            ],
+            [
+              "E",
+              "<DELETE>",
+              51
+            ],
+            [
+              "A",
+              "<DELETE>",
+              49
+            ],
+            [
+              "O",
+              "<DELETE>",
+              39
+            ],
+            [
+              "N",
+              "<DELETE>",
+              38
+            ],
+            [
+              "T",
+              "<DELETE>",
+              36
+            ],
+            [
+              "S",
+              "<DELETE>",
+              30
+            ],
+            [
+              "R",
+              "<DELETE>",
+              29
+            ],
+            [
+              "\n",
+              "<DELETE>",
+              29
+            ],
+            [
+              "L",
+              "<DELETE>",
+              28
+            ]
+          ],
+          "confusion_rate": 96.66666666666667
+        }
+      }
+    },
+    "tesseract": {
+      "llm": {
+        "token_efficiency": {
+          "total_tokens": 313,
+          "meaningful_tokens": 287,
+          "token_density": 0.9169329073482428,
+          "compression_ratio": 0.9169329073482428,
+          "estimated_cost_usd": 0.00313,
+          "chars_per_token": 2.6453674121405752
+        },
+        "field_extraction": {
+          "field_precision": 1.0,
+          "field_recall": 0.75,
+          "field_f1": 0.8571428571428571,
+          "correct_fields": [
+            "date",
+            "total",
+            "company"
+          ],
+          "missing_fields": [
+            "address"
+          ],
+          "incorrect_fields": [],
+          "extra_fields": []
+        }
+      },
+      "text": {
+        "cer": {
+          "cer": 60.74074074074074,
+          "insertions": 68,
+          "deletions": 50,
+          "substitutions": 376,
+          "total_chars": 810
+        },
+        "wer": {
+          "wer": 102.29885057471265,
+          "insertions": 16,
+          "deletions": 0,
+          "substitutions": 73,
+          "total_words": 132
+        },
+        "ser": {
+          "ser": 97.87234042553192,
+          "total_sentences": 47,
+          "error_sentences": 46,
+          "correct_sentences": 1,
+          "error_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45
+          ]
+        },
+        "token_accuracy": {
+          "exact_match_rate": 2.272727272727273,
+          "token_precision": 0.31896551724137934,
+          "token_recall": 0.3425925925925926,
+          "token_f1": 0.33035714285714285,
+          "correct_tokens": 37,
+          "total_gt_tokens": 132,
+          "total_pred_tokens": 132
+        },
+        "confusion_matrix": {
+          "confusion_matrix": {
+            "<INSERT>": {
+              "A": 2,
+              " ": 8,
+              "p": 1,
+              "s": 1,
+              "e": 9,
+              "z": 1,
+              ".": 4,
+              "\n": 10,
+              "_": 1,
+              "T": 2,
+              "O": 1,
+              "L": 1,
+              "l": 1,
+              "u": 2,
+              "x": 1,
+              "g": 2,
+              "r": 2,
+              "1": 2,
+              "2": 1,
+              "o": 2,
+              "n": 4,
+              "3": 1,
+              "8": 1,
+              "9": 1,
+              "0": 1,
+              "d": 3,
+              "h": 1,
+              "a": 1,
+              "m": 1
+            },
+            "E": {
+              "e": 41,
+              "2": 1,
+              "0": 5,
+              "9": 1,
+              "d": 2,
+              "<DELETE>": 1,
+              "r": 1
+            },
+            "R": {
+              "r": 20,
+              "0": 1,
+              ".": 1,
+              "<DELETE>": 1
+            },
+            "B": {
+              "b": 3,
+              "a": 1
+            },
+            "A": {
+              "a": 40,
+              "1": 1,
+              "<DELETE>": 1,
+              "c": 1
+            },
+            "N": {
+              "n": 28,
+              "0": 1,
+              "8": 1,
+              " ": 1,
+              ".": 1
+            },
+            "G": {
+              "g": 6,
+              "5": 1,
+              "1": 1
+            },
+            "L": {
+              "l": 21,
+              "5": 1,
+              "]": 1,
+              "<DELETE>": 2
+            },
+            "F": {
+              "f": 5,
+              "e": 1
+            },
+            "S": {
+              "s": 17,
+              "$": 1,
+              "t": 1
+            },
+            "T": {
+              "t": 16,
+              "<DELETE>": 2,
+              "o": 1
+            },
+            "U": {
+              "u": 7,
+              ".": 1,
+              "3": 1,
+              "s": 1
+            },
+            "D": {
+              "d": 12,
+              "O": 1,
+              ".": 1,
+              "0": 2,
+              "5": 1,
+              "f": 1,
+              "b": 1
+            },
+            "H": {
+              "h": 8,
+              "1": 1
+            },
+            "O": {
+              "o": 30,
+              ".": 1,
+              " ": 1,
+              "<DELETE>": 2,
+              "m": 1
+            },
+            "M": {
+              "m": 8,
+              "c": 1,
+              "e": 1
+            },
+            "Y": {
+              "y": 8
+            },
+            "K": {
+              "k": 7,
+              " ": 1
+            },
+            "W": {
+              "w": 6
+            },
+            "C": {
+              "c": 13,
+              "d": 1,
+              "k": 1,
+              "u": 1
+            },
+            "I": {
+              "i": 16
+            },
+            "V": {
+              "v": 2,
+              "<DELETE>": 1
+            },
+            "P": {
+              "p": 5
+            },
+            "0": {
+              "6": 1,
+              "<DELETE>": 9,
+              "v": 1
+            },
+            "X": {
+              "4": 1,
+              "x": 1
+            },
+            " ": {
+              "<DELETE>": 5
+            },
+            "\n": {
+              " ": 1,
+              "<DELETE>": 6,
+              "e": 1
+            },
+            "5": {
+              "<DELETE>": 3
+            },
+            "4": {
+              "<DELETE>": 1
+            },
+            "1": {
+              "<DELETE>": 5
+            },
+            ".": {
+              "<DELETE>": 6,
+              "l": 1
+            },
+            "3": {
+              "]": 1,
+              "<DELETE>": 1
+            },
+            "8": {
+              " ": 1,
+              "<DELETE>": 1
+            },
+            "9": {
+              "o": 1,
+              "<DELETE>": 1
+            },
+            "2": {
+              "<DELETE>": 2
+            }
+          },
+          "total_errors": 494,
+          "top_confusions": [
+            [
+              "E",
+              "e",
+              41
+            ],
+            [
+              "A",
+              "a",
+              40
+            ],
+            [
+              "O",
+              "o",
+              30
+            ],
+            [
+              "N",
+              "n",
+              28
+            ],
+            [
+              "L",
+              "l",
+              21
+            ],
+            [
+              "R",
+              "r",
+              20
+            ],
+            [
+              "S",
+              "s",
+              17
+            ],
+            [
+              "T",
+              "t",
+              16
+            ],
+            [
+              "I",
+              "i",
+              16
+            ],
+            [
+              "C",
+              "c",
+              13
+            ]
+          ],
+          "confusion_rate": 60.98765432098765
+        }
+      }
+    },
+    "char_difference": 750
+  }
+}
