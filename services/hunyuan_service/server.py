@@ -90,14 +90,19 @@ async def lifespan(app: FastAPI):
         logger.info(f"Using device: {device}")
 
         processor = AutoProcessor.from_pretrained(
-            MODEL_NAME, use_fast=False, trust_remote_code=True
+            MODEL_NAME, 
+            use_fast=False, 
+            trust_remote_code=True
         )
+        
+        # Load with trust_remote_code and let it handle custom architecture
         model = AutoModelForCausalLM.from_pretrained(
             MODEL_NAME,
             attn_implementation=ATTN_IMPL,
             torch_dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
             device_map="auto",
             trust_remote_code=True,
+            low_cpu_mem_usage=True,
         )
         model.eval()
         model_loaded = True

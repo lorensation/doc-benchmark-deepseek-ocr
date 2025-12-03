@@ -58,7 +58,7 @@ QWEN_URL = os.getenv("QWEN_URL", DEFAULT_QWEN)
 OCR_ENDPOINTS = {
     "deepseek": DEEPSEEK_URL,
     "tesseract": TESSERACT_URL,
-    "vista": VISTA_URL,
+    # "vista": VISTA_URL,  # Temporarily disabled
     "hunyuan": HUNYUAN_URL,
     "qwen2vl": QWEN_URL,
 }
@@ -66,11 +66,11 @@ OCR_ENDPOINTS = {
 OCR_SERVICE_LABELS = {
     "deepseek": "DeepSeek-OCR",
     "tesseract": "Tesseract",
-    "vista": "VISTA-OCR",
+    # "vista": "VISTA-OCR",  # Temporarily disabled
     "hunyuan": "HunyuanOCR",
     "qwen2vl": "Qwen2-VL",
 }
-SERVICE_ORDER = ["deepseek", "tesseract", "vista", "hunyuan", "qwen2vl"]
+SERVICE_ORDER = ["deepseek", "tesseract", "hunyuan", "qwen2vl"]  # vista temporarily disabled
 
 WORKER_PORT = int(os.getenv("WORKER_PORT", "9100"))
 

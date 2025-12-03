@@ -1,5 +1,6 @@
 data/datasets/invoices_raw/
 data/datasets/SROIE2019/
+DocOwl2/
 #DELETE THESE IN NEXT PUSH
 tests/
 .github/workflows/

@@ -2,13 +2,14 @@ import io
 import logging
 import os
 import datetime as dt
+import tempfile
 from contextlib import asynccontextmanager
 from typing import Optional
 
 from fastapi import FastAPI, File, HTTPException, UploadFile, status
 from pydantic import BaseModel
 from PIL import Image
-import torch
+import torch # type: ignore
 from transformers import AutoModel, AutoTokenizer  # type: ignore
 
 
@@ -57,11 +58,12 @@ async def lifespan(app: FastAPI):
             MODEL_NAME,
             trust_remote_code=True,
             torch_dtype=dtype,
-            device_map="auto",
             low_cpu_mem_usage=True,
-        )
+        ).to(device)
+        
         # Initialize the processor inside the model (DocOwl2 pattern)
         model.init_processor(tokenizer=tokenizer, basic_image_size=504, crop_anchors="grid_12")
+        
         if hasattr(model, "eval"):
             model.eval()
         model_loaded = True
@@ -89,14 +91,6 @@ class OCRResponse(BaseModel):
     confidence: float = 1.0
 
 
-def _prepare_inputs(image: Image.Image):
-    # DocOwl2 chat API expects messages and raw images list
-    images = [image]
-    content = "<|image|>" * len(images) + PROMPT
-    messages = [{"role": "USER", "content": content}]
-    return messages, images
-
-
 @app.post("/ocr", response_model=OCRResponse)
 async def ocr_image(file: UploadFile = File(...)):
     if not model_loaded or model is None or tokenizer is None:
@@ -122,20 +116,28 @@ async def ocr_image(file: UploadFile = File(...)):
                 detail=f"Invalid image file: {err}",
             ) from err
 
-        messages, images = _prepare_inputs(image)
-
-        with torch.inference_mode():
-            text = model.chat(  # type: ignore[call-arg]
-                messages=messages,
-                images=images,
-                tokenizer=tokenizer,
-                max_new_tokens=MAX_NEW_TOKENS,
-            )
-
-        if isinstance(text, list):
-            text = text[0] if text else ""
-        logger.info(f"OCR complete ({len(text)} chars).")
-        return OCRResponse(text=text, confidence=1.0)
+        # Use temporary directory for image processing
+        # DocOwl2 model.chat() expects file paths (strings), not PIL Image objects
+        with tempfile.TemporaryDirectory() as tmp:
+            # Save PIL image to temporary file
+            temp_image_path = os.path.join(tmp, "temp_image.jpg")
+            image.save(temp_image_path, format="JPEG")
+            
+            # Prepare messages following official DocOwl2 pattern
+            images = [temp_image_path]  # List of file paths (strings)
+            query = PROMPT
+            messages = [{"role": "USER", "content": "<|image|>" * len(images) + query}]
+            
+            # Use model.chat() method as in official implementation
+            with torch.inference_mode():
+                text = model.chat(
+                    messages=messages, 
+                    images=images, 
+                    tokenizer=tokenizer
+                )
+            
+            logger.info(f"OCR complete ({len(text)} chars).")
+            return OCRResponse(text=text, confidence=1.0)
 
     except HTTPException:
         raise
